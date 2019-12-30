@@ -4,6 +4,7 @@ import Index from './types/Index'
 import Stat from './types/Stat'
 import Decile from './types/Decile'
 import gini from 'gini'
+import reducePayBands from './infra/reduce-pay-bands'
 
 const decile: (index: number) => (indexes: Index[]) => () => Decile =
   index =>
@@ -62,8 +63,14 @@ const stat: (fn: (lsoa: LSOA) => Index) =>
 export default (lsoasStart: LSOA[]) => ({
   Query: {
     result: (_: any, { laDistricts }: { laDistricts: string[] }): Result[] => {
-      console.log(lsoasStart.slice(1,2))
       const lsoas = lsoasStart
+        /*.filter(
+          ({
+            laDistrict : {
+              code,
+            }
+          }) => laDistricts.includes(code)
+        )*/
         /*.filter(
           ({
             class: {
@@ -115,6 +122,10 @@ export default (lsoasStart: LSOA[]) => ({
             laDistrict,
             lsoas: districtLsoas,
             stats: {
+              individualPayBands: reducePayBands(
+                districtLsoas,
+                laDistrict,
+              ),
               totalCount: districtLsoas.length,
               imd:
                 stat(({ imd }) => imd)(districtLsoas),

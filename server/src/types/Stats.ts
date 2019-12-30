@@ -1,4 +1,5 @@
 import Stat from './Stat'
+import GiniPayBands from './GiniPayBands'
 
 export default interface Stats {
   imd: Stat;
@@ -23,4 +24,5 @@ export default interface Stats {
   population60: Stat;
   workingAgePopulation: Stat;
   totalCount: number;
+  individualPayBands: GiniPayBands,
 }

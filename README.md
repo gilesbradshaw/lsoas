@@ -29,4 +29,8 @@ E1,Rural village and dispersed
 E2,Rural village and dispersed in a sparse setting
 ![](e2.png)
 
+Local authorities inequality vs deprivation in highest third
+![](lavs3.png)
 
+Local authorities inequality vs deprivation in lowest third
+![](lavstop3.png)

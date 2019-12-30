@@ -1,7 +1,7 @@
 ///<reference types="webpack-env" />
 
 import { ApolloServer } from 'apollo-server';
-
+import gini from 'gini'
 import LSOA from './types/LSOA'
 import RuralClassification from './types/RuralClassification'
 import PayBands from './types/PayBands'
@@ -12,6 +12,13 @@ import makeIndex from './infra/make-index'
 import toNumbers from './infra/to-numbers'
 import toIndex from './infra/to-index'
 import makePayBands from './infra/make-pay-bands'
+
+
+console.log(gini.ordered([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]))
+console.log(gini.ordered([
+  ...Array(5).fill(5.5),
+  ...Array(5).fill(15.5)
+]))
 
 Promise
   .all([

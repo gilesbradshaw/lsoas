@@ -2,7 +2,7 @@ import gini from 'gini'
 import LSOA from '../types/LSOA'
 import CountedPayBand from '../types/CountedPayBand'
 import GiniPayBands from '../types/GiniPayBands'
-import bands from './bands'
+import makeGini from './make-gini'
 
 const makePayBands: (
   payBands: string[],
@@ -29,18 +29,8 @@ const makePayBands: (
       )
       return {
         bands: countedPayBands,
-        gini: gini.ordered(
-          countedPayBands
-            .slice(0,9)
-            .reduce(
-              (acc, val, index) => [
-                ...acc,
-                ...Array(val.count).fill(
-                  (bands[index][1]-bands[index][0])/2
-                )
-              ],
-              [] as number[],
-            )
+        gini: makeGini(
+          countedPayBands,
         ),
       }
   }

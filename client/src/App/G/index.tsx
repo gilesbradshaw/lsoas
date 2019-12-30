@@ -87,8 +87,11 @@ export default () => {
           },
           stats: {
             totalCount,
-            imd: {
+            individualPayBands: {
               gini,
+            },
+            income: {
+              // gini,
               mean,
               deciles: {
                 decile01: {
@@ -130,72 +133,22 @@ export default () => {
             //16.4, 5.4
             gini * 100,
             // mean,
-            //percentage08 + percentage09 + percentage10,
-            //percentage04 + percentage05 + percentage06 + percentage07,
-            percentage01 + percentage02 + percentage03,
+            // percentage10,
+            // percentage10 + percentage09,
+            percentage08 + percentage09 + percentage10,
+            //percentage10 + percentage09 + percentage08 + percentage07 + percentage06,
+            // percentage01 + percentage02 + percentage03 + percentage04 + percentage05,
             
+            //percentage04 + percentage05 + percentage06 + percentage07,
+            // percentage01 + percentage02 + percentage03,
+            // percentage01,
             totalCount,
           ]],
         })
       ),
       [data || 1]
   )
-  const series1 = useMemo(
-    () => [{
-      name: "Cambridge",
-      data: [
-        [
-          37.71336553945248,
-          0,
-        ],
-      ]
-    },{
-      name: "Blackpool",
-      data: [
-        [
-          31.64908241812141,
-          36.17021276595745
-        ],
-      ]
-    },{
-      "name": "Hertsmere",
-      "data": [
-        33.61064358886254,
-        1.6129032258064515
-      ]
-    },{
-      name: "devon",
-      data: [
-        [
-          30.509149186299684,
-          3.4482758620689653
-        ],
-      ]
-    }],
-    [data],
-  )
-  const chartData = useMemo(
-    () => [
-      {
-        label: 'Series 1',
-        data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
-      },
-      {
-        label: 'Series 2',
-        data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-      }
-    ],
-    []
-  )
- 
-  const axes = useMemo(
-    () => [
-      { primary: true, type: 'linear', position: 'bottom' },
-      { type: 'linear', position: 'left' }
-    ],
-    []
-  )
-
+  
   return <Scroll>
     <div
       style={{

@@ -52,6 +52,7 @@ export default gql`
   }
   type Stats {
     totalCount: Int!
+    individualPayBands: Bands!
     imd: Stat!
     income: Stat!
     employment: Stat!

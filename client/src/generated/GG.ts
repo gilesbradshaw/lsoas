@@ -12,6 +12,11 @@ export interface GG_result_laDistrict {
   code: string;
 }
 
+export interface GG_result_stats_individualPayBands {
+  __typename: "Bands";
+  gini: number;
+}
+
 export interface GG_result_stats_imd_deciles_decile01 {
   __typename: "Decile";
   count: number;
@@ -177,6 +182,7 @@ export interface GG_result_stats_income {
 export interface GG_result_stats {
   __typename: "Stats";
   totalCount: number;
+  individualPayBands: GG_result_stats_individualPayBands;
   imd: GG_result_stats_imd;
   income: GG_result_stats_income;
 }

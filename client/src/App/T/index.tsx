@@ -81,16 +81,16 @@ export default () => {
   return <Scroll>
     <div
       style={{
-        width: '800px',
-        height: '600px'
+        width: '1600px',
+        height: '800px'
       }}
     >
       {series && <Chart
         options={options}
         series={series}
         type="scatter"
-        width="800"
-        height="600"
+        width="1600"
+        height="800"
       />}
     </div>
     <Pre>

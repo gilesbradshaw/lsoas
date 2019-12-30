@@ -20,7 +20,7 @@ import { lifecycle, withState, compose } from 'recompose'
 
 
 // import Lib from 'lib'
-import T from './T'
+import T from './G'
 
 // import './App.css';
 //import Zone from '../../../oldts/Zone'
