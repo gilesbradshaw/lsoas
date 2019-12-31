@@ -6,6 +6,8 @@ export default interface LSOA {
   lsoa: Code;
   laDistrict: Code;
   class: Code;
+  ward: Code;
+  parliamentaryConstituency: Code;
   individualPayBands: GiniPayBands,
   householdPayBands: string[],
   imd: Index;

@@ -12,28 +12,28 @@ import makeIndex from './infra/make-index'
 import toNumbers from './infra/to-numbers'
 import toIndex from './infra/to-index'
 import makePayBands from './infra/make-pay-bands'
-
-
-console.log(gini.ordered([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]))
-console.log(gini.ordered([
-  ...Array(5).fill(5.5),
-  ...Array(5).fill(15.5)
-]))
+import makeWard from './infra/make-ward'
 
 Promise
   .all([
     promiseCsv(
-      'File_7_-_All_IoD2019_Scores__Ranks__Deciles_and_Population_Denominators_3.csv',
+      '../data/File_7_-_All_IoD2019_Scores__Ranks__Deciles_and_Population_Denominators_3.csv',
     ),
     promiseCsv(
-      'Rural_Urban_Classification_2011_of_Lower_Layer_Super_Output_Areas_in_England_and_Wales.csv',
+      '../data/Rural_Urban_Classification_2011_of_Lower_Layer_Super_Output_Areas_in_England_and_Wales.csv',
     ),
     promiseCsv(
-      'researchoutputsincomefrompayeandbenefits201516-individual.csv',
+      '../data/researchoutputsincomefrompayeandbenefits201516-individual.csv',
     ),
     promiseCsv(
-      'researchoutputsincomefrompayeandbenefits201516-household.csv',
-    )
+      '../data/researchoutputsincomefrompayeandbenefits201516-household.csv',
+    ),
+    promiseCsv(
+      '../data/Lower_Layer_Super_Output_Area_2011_to_Ward_2017_Lookup_in_England_and_Wales.csv',
+    ),
+    promiseCsv(
+      '../data/Ward_to_Westminster_Parliamentary_Constituency_to_Local_Authority_District_December_2017_Lookup_in_the_United_Kingdom.csv',
+    ),
   ])
   .then(
     ([
@@ -41,7 +41,39 @@ Promise
       ruralClassification,
       individualPayAndBenefit,
       householdPayAndBenefit,
+      lsoaToWard,
+      wardToParliamentaryConstituency,
     ]) => {
+      const lsoaToWards =
+        lsoaToWard
+          .slice(1)
+          .map(
+            lsoa => ({
+              lsoa: {
+                code: lsoa[0],
+                name: lsoa[1],
+              },
+              ward: {
+                code: lsoa[2],
+                name: lsoa[3],
+              }
+            })
+          )
+      const wardToParliamentaryConstituencies = 
+        wardToParliamentaryConstituency
+          .slice(1)
+          .map(
+            lsoa => ({
+              ward: {
+                code: lsoa[0],
+                name: lsoa[1],
+              },
+              parliamentaryConstituency: {
+                code: lsoa[2],
+                name: lsoa[3],
+              }
+            })
+          )
       const individualPayAndBenefits =
         individualPayAndBenefit
           .slice(7)
@@ -116,6 +148,11 @@ Promise
                         },
                       }) => code === lsoa[0]
                     ) as RuralClassification).class,
+                  ...makeWard(
+                    lsoa[0],
+                    lsoaToWards,
+                    wardToParliamentaryConstituencies,
+                  ),
                   individualPayBands: makePayBands(
                     (individualPayAndBenefits
                       .find(

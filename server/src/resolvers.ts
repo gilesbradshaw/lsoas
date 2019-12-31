@@ -63,6 +63,19 @@ const stat: (fn: (lsoa: LSOA) => Index) =>
 export default (lsoasStart: LSOA[]) => ({
   Query: {
     result: (_: any, { laDistricts }: { laDistricts: string[] }): Result[] => {
+      console.log(
+        JSON
+          .stringify(
+            lsoasStart
+              .find(
+                ({
+                  lsoa: {
+                    code,
+                  }
+                }) => code === 'E01017948'
+              ), null, 2
+          )
+      )
       const lsoas = lsoasStart
         /*.filter(
           ({
