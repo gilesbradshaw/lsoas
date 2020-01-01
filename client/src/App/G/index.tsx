@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useMemo } from 'react'
+import color from 'color'
 //import { Chart } from 'react-charts'
 import Chart from 'react-apexcharts'
 import { useQuery } from '@apollo/react-hooks'
@@ -18,14 +19,17 @@ const options = {
       },
       ...aee
     }) => {
-      if(!series[seriesIndex].data[0][3]) {
-        return '#000000'
+      console.log(series[seriesIndex].data)
+      if(!series[seriesIndex].data[0][3][0]) {
+        console.log('noooo')
+        return '#FFFF00'
       }
       if (series[seriesIndex].data[0][3][0] < series[seriesIndex].data[0][3][1]) {
-        return '#FF0000'
+
+        return color('#FF0000').darken((series[seriesIndex].data[0][3][0] / series[seriesIndex].data[0][3][1])/1.2).hex()
         
       }
-      return '#00FF00'
+      return color('#00FF00').darken((series[seriesIndex].data[0][3][1] / series[seriesIndex].data[0][3][0])/1.2).hex() 
     }
   ],
   fill: {

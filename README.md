@@ -2,7 +2,7 @@
 
 ## how local authorities voted in eu referendum
 
-green is leave red is remain - income inequality increased from left to right - number of deprived areas increases as you go up, size is size of local authority.
+green is leave red is remain - income inequality increased from left to right - number of deprived areas increases as you go up, size is size of local authority.  The darker the more marginal
 ![euref](euref.png)
 
 
