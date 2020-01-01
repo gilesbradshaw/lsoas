@@ -1,23 +1,9 @@
 import Stat from './Stat'
 import GiniPayBands from './GiniPayBands'
+import IMDStats from './IMDStats'
 
 export default interface Stats {
-  imd: Stat;
-  income: Stat;
-  employment: Stat;
-  educationSkillsAndTraining: Stat;
-  healthDeprivationAndDisability: Stat;
-  crime: Stat;
-  barriersToHousingAndServices: Stat;
-  livingEnvironment: Stat;
-  incomeDeprivationAffectingChildren: Stat;
-  incomeDeprivationAffectingOlderPeople: Stat;
-  childrenAndYoungPeopleSubDomain: Stat;
-  adultSkillsSubDomain: Stat;
-  geographicalBarriersSubDomain: Stat;
-  widerBarriersSubDomain: Stat;
-  indoorsSubDomain: Stat;
-  outdoorsSubDomain: Stat;
+  imds: IMDStats;
   totalPopulation: Stat;
   dependentChildren0_15: Stat;
   population16_59: Stat;

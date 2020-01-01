@@ -7,6 +7,27 @@ import query from './query'
 import Pre from '../Pre'
 import Scroll from '../Scroll'
 const options = {
+  colors: [
+    ({
+      seriesIndex,
+      w: {
+        config: {
+          series,
+          ...rest
+        }
+      },
+      ...aee
+    }) => {
+      if(!series[seriesIndex].data[0][3]) {
+        return '#000000'
+      }
+      if (series[seriesIndex].data[0][3][0] < series[seriesIndex].data[0][3][1]) {
+        return '#FF0000'
+        
+      }
+      return '#00FF00'
+    }
+  ],
   fill: {
     type: 'solid',
   },
@@ -45,85 +66,58 @@ const options = {
     }
   },
 }
-const options1 = {
-  chart: {
-    zoom: {
-      enabled: true,
-      type: 'line'
-    }
-  },
-  legend: {
-    show: false
-  },
-  xaxis: {
-    // min: 0,
-    // max: 100,
-    tickAmount: 10,
-    labels: {
-        formatter: function (val: string) {
-            return parseFloat(val).toFixed(2)
-        }
-    }
-  },
-  yaxis: {
-    tickAmount: 10,
-    labels: {
-      formatter: function (val: string) {
-          return parseFloat(val).toFixed(1)
-      }
-    }
-  }
-}
 
 export default () => {
   const { data } = useQuery(query)
   const series = useMemo(
     () => data
-      ?.result
+      ?.localAuthorities
       ?.map(
         ({
-          laDistrict: {
-            name,
-          },
+          name,
+          percentLeave,
+          percentRemain,
           stats: {
             totalCount,
             individualPayBands: {
               gini,
             },
-            income: {
-              // gini,
-              mean,
-              deciles: {
-                decile01: {
-                  percentage: percentage01,
-                },
-                decile02: {
-                  percentage: percentage02,
-                },
-                decile03: {
-                  percentage: percentage03,
-                },
-                decile04: {
-                  percentage: percentage04,
-                },
-                decile05: {
-                  percentage: percentage05,
-                },
-                decile06: {
-                  percentage: percentage06,
-                },
-                decile07: {
-                  percentage: percentage07,
-                },
-                decile08: {
-                  percentage: percentage08,
-                },
-                decile09: {
-                  percentage: percentage09,
-                },
-                decile10: {
-                  percentage: percentage10,
-                },
+            imds : {
+              income: {
+                // gini,
+                mean,
+                deciles: {
+                  decile01: {
+                    percentage: percentage01,
+                  },
+                  decile02: {
+                    percentage: percentage02,
+                  },
+                  decile03: {
+                    percentage: percentage03,
+                  },
+                  decile04: {
+                    percentage: percentage04,
+                  },
+                  decile05: {
+                    percentage: percentage05,
+                  },
+                  decile06: {
+                    percentage: percentage06,
+                  },
+                  decile07: {
+                    percentage: percentage07,
+                  },
+                  decile08: {
+                    percentage: percentage08,
+                  },
+                  decile09: {
+                    percentage: percentage09,
+                  },
+                  decile10: {
+                    percentage: percentage10,
+                  },
+                }
               }
             }
           }
@@ -133,16 +127,20 @@ export default () => {
             //16.4, 5.4
             gini * 100,
             // mean,
-            // percentage10,
+            //percentage10,
             // percentage10 + percentage09,
-            percentage08 + percentage09 + percentage10,
+            // percentage08 + percentage09 + percentage10,
             //percentage10 + percentage09 + percentage08 + percentage07 + percentage06,
             // percentage01 + percentage02 + percentage03 + percentage04 + percentage05,
             
             //percentage04 + percentage05 + percentage06 + percentage07,
-            // percentage01 + percentage02 + percentage03,
+            //percentage01 + percentage02 + percentage03,
+            percentage01 + percentage02,
+            // ipercentage01,
             // percentage01,
             totalCount,
+            [percentLeave,
+            percentRemain,]
           ]],
         })
       ),

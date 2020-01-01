@@ -50,9 +50,7 @@ export default gql`
     totalCount: Int!
     deciles: Deciles
   }
-  type Stats {
-    totalCount: Int!
-    individualPayBands: Bands!
+  type IMDStats {
     imd: Stat!
     income: Stat!
     employment: Stat!
@@ -69,15 +67,18 @@ export default gql`
     widerBarriersSubDomain: Stat!
     indoorsSubDomain: Stat!
     outdoorsSubDomain: Stat!
+  }
+  type Stats {
+    imds: IMDStats!
+    totalCount: Int!
+    individualPayBands: Bands!
     totalPopulation: Stat!
     dependentChildren0_15: Stat!
     population16_59: Stat!
     population60: Stat!
     workingAgePopulation: Stat!
   }
-  type LSOA {
-    lsoa: Code!
-    laDistrict: Code!
+  type IMDS {
     imd: Index!
     income: Index!
     employment: Index!
@@ -94,6 +95,13 @@ export default gql`
     widerBarriersSubDomain: Index!
     indoorsSubDomain: Index!
     outdoorsSubDomain: Index!
+  }
+  type LSOA {
+    id: String!
+    name: String!
+    localAuthority: LocalAuthority!
+    parliamentaryConstituency: ParliamentaryConstituency!
+    imds: IMDS!
     totalPopulation: Index!
     dependentChildren0_15: Index!
     population16_59: Index!
@@ -101,15 +109,34 @@ export default gql`
     workingAgePopulation: Index!
     individualPayBands: Bands!
   }
-  type Result {
-    laDistrict: Code!
+  type LocalAuthority {
+    id: String!
+    name: String!
+    lsoas: [LSOA]!
+    stats: Stats!
+    percentLeave: Float!
+    percentRemain: Float!
+  }
+  type ParliamentaryConstituency {
+    id: String!
+    name: String!
     lsoas: [LSOA]!
     stats: Stats!
   }
+  type Ward {
+    id: String!
+    name: String!
+    lsoas: [LSOA]!
+    stats: Stats!
+  }
+  
   type Query {
     """
     Test Message. 
     """
-    result(laDistricts: [String]): [Result]
+    localAuthorities: [LocalAuthority]!
+    lsoas: [LSOA]!
+    parliamentaryConstituencies: [ParliamentaryConstituency]!
+    wards: [Ward]!
   }
 `;

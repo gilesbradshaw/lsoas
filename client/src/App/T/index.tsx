@@ -51,12 +51,10 @@ export default () => {
   const { data } = useQuery(query)
   const series = useMemo(
     () => data
-      ?.result
+      ?.localAuthorities
       ?.map(
         ({
-          laDistrict: {
-            name,
-          },
+          name,
           lsoas,
         }) => ({
           name,
@@ -66,8 +64,10 @@ export default () => {
                 individualPayBands: {
                   gini
                 },
-                imd: {
-                  score,
+                imds: {
+                  imd: {
+                    score,
+                  },
                 }
               }) => [
                 gini * 100,

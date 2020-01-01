@@ -1,8 +1,14 @@
 # lsoas
 
+## how local authorities voted in eu referendum
+
+green is leave red is remain - income inequality increased from left to right - number of deprived areas increases as you go up, size is size of local authority.
+![euref](euref.png)
+
+
+relates multiple deprivation score on Y axis against inequality on X axis for English LSOAS - areas of approx 1,500 people
 ![](lsoas.png)
 
-Currently relates multiple deprivation score on Y axis against inequality on X axis for English LSOAS - areas of approx 1,500 people
 
 
 A1 - Urban major conurbation

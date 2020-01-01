@@ -1,6 +1,7 @@
 import Index from './Index'
 import GiniPayBands from './GiniPayBands'
 import Code from './Code'
+import IMDS from './IMDS'
 
 export default interface LSOA {
   lsoa: Code;
@@ -10,22 +11,7 @@ export default interface LSOA {
   parliamentaryConstituency: Code;
   individualPayBands: GiniPayBands,
   householdPayBands: string[],
-  imd: Index;
-  income: Index;
-  employment: Index;
-  educationSkillsAndTraining: Index;
-  healthDeprivationAndDisability: Index;
-  crime: Index;
-  barriersToHousingAndServices: Index;
-  livingEnvironment: Index;
-  incomeDeprivationAffectingChildren: Index;
-  incomeDeprivationAffectingOlderPeople: Index;
-  childrenAndYoungPeopleSubDomain: Index;
-  adultSkillsSubDomain: Index;
-  geographicalBarriersSubDomain: Index;
-  widerBarriersSubDomain: Index;
-  indoorsSubDomain: Index;
-  outdoorsSubDomain: Index;
+  imds: IMDS;
   totalPopulation: Index;
   dependentChildren0_15: Index;
   population16_59: Index;
