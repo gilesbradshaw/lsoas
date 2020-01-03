@@ -1,14 +1,23 @@
 import { gql } from 'apollo-boost'
 
 export default gql`
-  query RR {
-    regions {
+  query PP {
+    parliamentaryConstituencies {
       name 
       id
-      localAuthorities {
+      localAuthority {
+        id
         euReferendum {
-          leave
-          remain
+          percentRemain
+          percentLeave
+        }
+      }
+      generalElections {
+        date
+        totalVotes
+        results {
+          name
+          votes
         }
       }
       stats {

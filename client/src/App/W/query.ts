@@ -7,8 +7,10 @@ export default gql`
       id
       localAuthority {
         id
-        percentRemain
-        percentLeave
+        euReferendum {
+          percentRemain
+          percentLeave
+        }
       }
       stats {
         totalCount

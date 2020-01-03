@@ -16,15 +16,17 @@ export default ({
           ({
             name,
             localAuthority: {
-              percentLeave,
-              percentRemain,
+              euReferendum: {
+                percentLeave,
+                percentRemain,
+              } = {}
             } = {},
             stats: {
               totalCount,
             },
           }) => ({
-            //percentLeave,
-            //percentRemain,
+            percentLeave,
+            percentRemain,
             totalCount,
           })
         ) || []
@@ -38,7 +40,7 @@ export default ({
           fill: {
             type: 'solid',
           },
-          colors1:
+          colors:
             stats
             .map(
               ({
@@ -103,8 +105,10 @@ export default ({
             ({
               name,
               localAuthority: {
-                percentLeave,
-                percentRemain,
+                euReferendum: {
+                  percentLeave,
+                  percentRemain,
+                } = {}
               } = {},
               stats: {
                 totalCount,

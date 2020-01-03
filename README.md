@@ -2,6 +2,22 @@
 
 Api and client for data on Local Authorities, Parliamentary Constituencies, Wards and Lower Layer Super Output Areas
 
+## GE2019 swings from 2017
+
+![swings2017-2019](swings2017-2019.png)
+
+## GE2017 swings from 2015
+
+![swings2015-2017](swings2015-2017.png)
+
+## GE2015 swings from 2010
+
+![swings2010-2015](swings2010-2015.png)
+
+## GE2019 swings and gains from 2010
+
+![swings2010-2019](swings2010-2019.png)
+
 ## leave vs remain for English regions
 
 ![regions](regions.png)

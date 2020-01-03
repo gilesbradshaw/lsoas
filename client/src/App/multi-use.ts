@@ -84,7 +84,9 @@ const seriesFunc = data =>
                   (
                     acc,
                     {
-                      leave,
+                      euReferendum: {
+                        leave,
+                      }
                     }
                   ) =>
                     leave + acc,
@@ -95,7 +97,9 @@ const seriesFunc = data =>
                 (
                   acc,
                   {
-                    remain,
+                    euReferendum: {
+                      remain,
+                    }
                   }
                 ) =>
                   remain + acc,

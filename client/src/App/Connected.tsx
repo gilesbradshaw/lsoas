@@ -23,6 +23,7 @@ import R from './R'
 import P from './P'
 import T from './T'
 import W from './W'
+import S from './S'
 
 // import './App.css';
 //import Zone from '../../../oldts/Zone'
@@ -78,6 +79,11 @@ const Connected: React.FC<{ client: any } & RouteComponentProps> =
                     <Route
                       component={W}
                       path={`${path}W`}
+                      exact
+                    />
+                    <Route
+                      component={S}
+                      path={`${path}S`}
                       exact
                     />
                     <Route

@@ -80,8 +80,10 @@ export default () => {
       .map(
         ({
           name,
-          percentLeave,
-          percentRemain,
+          euReferendum: {
+            percentLeave,
+            percentRemain,
+          },
           stats: {
             totalCount,
             individualPayBands: {

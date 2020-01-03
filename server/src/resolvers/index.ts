@@ -1,3 +1,7 @@
+import {
+  GraphQLDate,
+} from 'graphql-iso-date'
+
 import LSOA from '../types/LSOA'
 import Region from '../types/Region'
 import LocalAuthority from '../types/LocalAuthority'
@@ -75,6 +79,7 @@ export default ({
       )
 
   return {
+    Date: GraphQLDate,
     Ward: {
       name: ({ wd }: Ward) =>
         wd.name, 

@@ -16,12 +16,19 @@ import localAuthority from './data/local-authority'
 import parliamentaryConstituency from './data/parliamentary-constituency'
 import euReferendum from './data/eu-ref'
 import Code from './types/Code'
-
+import generalElection from './data/general-election'
+import GeneralElection from './data/general-election/GeneralElection'
 import makeRegion from './infra/region'
 
-localAuthorityToRegion()
+Promise.all([
+  localAuthorityToRegion(),
+  generalElection(),
+])
   .then(
-    localAuthorityToRegions =>
+    ([
+      localAuthorityToRegions,
+      generalElections,
+     ]) =>
       Promise
         .all([
           ruralUrbanClassification(),
@@ -88,34 +95,11 @@ localAuthorityToRegion()
                               localAuthorityToRegions,
                               {
                                 localAuthority,
-                                percentRemain: parseFloat(
-                                  (euReferendums
-                                    .find(
-                                      ({ area: { code } }) =>
-                                        localAuthority.code === code,
-                                    ) || { percentRemain: '0' } as { percentRemain: string }).percentRemain
-                                ),
-                                percentLeave: parseFloat(
-                                  (euReferendums
-                                    .find(
-                                      ({ area: { code } }) =>
-                                        localAuthority.code === code,
-                                    ) || { percentLeave: '0' } as { percentLeave: string }).percentLeave
-                                ),
-                                remain: parseInt(
-                                  (euReferendums
-                                    .find(
-                                      ({ area: { code } }) =>
-                                        localAuthority.code === code,
-                                    ) || { remain: '0' } as { remain: string }).remain
-                                ),
-                                leave: parseInt(
-                                  (euReferendums
-                                    .find(
-                                      ({ area: { code } }) =>
-                                        localAuthority.code === code,
-                                    ) || { leave: '0' } as { leave: string }).leave
-                                ),
+                                euReferendum: euReferendums
+                                  .find(
+                                    ({ area: { code } }) =>
+                                      localAuthority.code === code,
+                                  ),
                                 lsoas: lsoas
                                   .filter(
                                     ({
@@ -136,6 +120,14 @@ localAuthorityToRegion()
                                 localAuthority:
                                   parliamentaryConstituencyToLocalAuthorities
                                     .get(pc.code) as Code,
+                                generalElections: generalElections
+                                  .map(
+                                    generalElection =>
+                                      generalElection.get(
+                                        pc.code,
+                                      ) as GeneralElection
+                                  )
+                                  .filter(g => g),
                                 lsoas: lsoas
                                   .filter(
                                     ({
