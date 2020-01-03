@@ -12,9 +12,8 @@ export default () => {
   const config = use({
     query,
     get: data => {
-      console.log(JSON.stringify(data, null, 2))
       return data
-        ?.wards
+        ?.regions
     }
   })
 

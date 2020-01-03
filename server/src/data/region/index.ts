@@ -2,11 +2,11 @@ import promiseCsv from '../../promise-csv'
 
 export default () =>
   promiseCsv(
-    '../data/Local_Authority_Districts_December_2018_Names_and_Codes_in_the_United_Kingdom.csv',
+    '../data/Regions_December_2018_Names_and_Codes_in_England.csv',
   )
   .then(
-    localAuthorities =>
-      localAuthorities
+    regions =>
+    regions
         .slice(1)
         .map(
           lsoa => ({
@@ -15,4 +15,3 @@ export default () =>
           })
         )
   )
-

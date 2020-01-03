@@ -99,8 +99,10 @@ export default gql`
   type LSOA {
     id: String!
     name: String!
+    region: Region!
     localAuthority: LocalAuthority!
     parliamentaryConstituency: ParliamentaryConstituency!
+    ward: Ward!
     imds: IMDS!
     totalPopulation: Index!
     dependentChildren0_15: Index!
@@ -109,11 +111,18 @@ export default gql`
     workingAgePopulation: Index!
     individualPayBands: Bands!
   }
-  type LocalAuthority {
+  type Region {
     id: String!
     name: String!
     lsoas: [LSOA]!
-    stats: Stats!
+    stats: Stats
+  }
+  type LocalAuthority {
+    id: String!
+    name: String!
+    region: Region!
+    lsoas: [LSOA]!
+    stats: Stats
     percentLeave: Float!
     percentRemain: Float!
   }
@@ -121,19 +130,25 @@ export default gql`
     id: String!
     name: String!
     lsoas: [LSOA]!
-    stats: Stats!
+    stats: Stats
+    region: Region!
+    localAuthority: LocalAuthority!
   }
   type Ward {
     id: String!
     name: String!
     lsoas: [LSOA]!
-    stats: Stats!
+    stats: Stats
+    region: Region!
+    localAuthority: LocalAuthority!
+    parliamentaryConstituency: ParliamentaryConstituency!
   }
   
   type Query {
     """
     Test Message. 
     """
+    regions: [Region]!
     localAuthorities: [LocalAuthority]!
     lsoas: [LSOA]!
     parliamentaryConstituencies: [ParliamentaryConstituency]!

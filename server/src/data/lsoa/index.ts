@@ -2,27 +2,30 @@ import promiseCsv from '../../promise-csv'
 import LsoaToWard from '../lsoa-to-ward/LsoaToWard'
 import PayBands from '../pay-and-benefits/PayBands'
 import RuralClassification from '../rural-urban-classification/RuralClassification'
-import WardToParliamentaryConstituency from '../ward-to-parliamentary-constituency/WardToParliamentaryConstituency'
 import toNumbers from './infra/to-numbers'
-import makeWard from './infra/make-ward'
+import makeRegion from './infra/make-region'
+import makeParliamentaryConstituency from './infra/make-parliamentary-constituency'
 import makePayBands from './infra/make-pay-bands'
 import makeIndex from './infra/make-index'
 import toIndex from './infra/to-index'
 
 import LSOA from '../../types/LSOA'
+import Code from '../../types/Code'
 
 export default ({
+  localAuthorityToRegions,
   ruralClassifications,
   individualPayAndBenefits,
   householdPayAndBenefits,
   lsoaToWards,
   wardToParliamentaryConstituencies,
 }: {
+  localAuthorityToRegions: Map<string,Code>;
   ruralClassifications: RuralClassification[];
   individualPayAndBenefits: PayBands[];
   householdPayAndBenefits: PayBands[];
-  lsoaToWards: LsoaToWard[];
-  wardToParliamentaryConstituencies: WardToParliamentaryConstituency[];
+  lsoaToWards: Map<string, { localAuthority: Code, ward: Code }>;
+  wardToParliamentaryConstituencies: Map<string,Code>;
 }) =>
   promiseCsv(
     '../data/File_7_-_All_IoD2019_Scores__Ranks__Deciles_and_Population_Denominators_3.csv',
@@ -42,10 +45,12 @@ export default ({
               code: lsoa[0],
               name: lsoa[1],
             },
-            laDistrict: {
-              code: lsoa[2],
-              name: lsoa[3]
-            },
+            ...makeRegion(
+              (
+                lsoaToWards.get(lsoa[0]) as { localAuthority: Code }
+              ).localAuthority,
+              localAuthorityToRegions,
+            ),
             class: (ruralClassifications
               .find(
                 ({
@@ -54,9 +59,10 @@ export default ({
                   },
                 }) => code === lsoa[0]
               ) as RuralClassification).class,
-            ...makeWard(
-              lsoa[0],
-              lsoaToWards,
+            ...makeParliamentaryConstituency(
+              (
+                lsoaToWards.get(lsoa[0]) as { ward: Code }
+              ).ward,
               wardToParliamentaryConstituencies,
             ),
             individualPayBands: makePayBands(
@@ -160,6 +166,6 @@ export default ({
               56,
             ),
           })
-        ) //
+        )
       },
   )

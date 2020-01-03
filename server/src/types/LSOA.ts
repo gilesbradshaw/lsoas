@@ -5,10 +5,11 @@ import IMDS from './IMDS'
 
 export default interface LSOA {
   lsoa: Code;
-  laDistrict: Code;
-  class: Code;
-  ward: Code;
+  region: Code;
+  localAuthority: Code;
   parliamentaryConstituency: Code;
+  ward: Code;
+  class: Code;
   individualPayBands: GiniPayBands,
   householdPayBands: string[],
   imds: IMDS;

@@ -76,7 +76,10 @@ export default () => {
   const series = useMemo(
     () => data
       ?.localAuthorities
-      ?.map(
+      .filter(
+        ({ stats }) => stats,
+      )
+      .map(
         ({
           name,
           percentLeave,
@@ -143,8 +146,10 @@ export default () => {
             // ipercentage01,
             // percentage01,
             totalCount,
-            [percentLeave,
-            percentRemain,]
+            [
+              percentLeave,
+              percentRemain,
+            ],
           ]],
         })
       ),

@@ -1,80 +1,241 @@
 import LSOA from '../types/LSOA'
+import Region from '../types/Region'
 import LocalAuthority from '../types/LocalAuthority'
 import ParliamentaryConstituency from '../types/ParliamentaryConstituency'
 import Ward from '../types/Ward'
 import stats from './infra/stats'
 
 export default ({
+  regions,
   lsoas,
   localAuthorities,
   parliamentaryConstituencies,
   wards,
 }: {
+  regions: Region[];
   lsoas: LSOA[];
   localAuthorities: LocalAuthority[];
   parliamentaryConstituencies: ParliamentaryConstituency[];
   wards: Ward[];
-}) => ({
-  Ward: {
-    name: ({ wd }: Ward) =>
-      wd.name, 
-    id:  ({ wd }: Ward) =>
-      wd.code,
-    lsoas: ({ lsoas }: Ward) =>
-      lsoas,
+}) => {
+  const wardMap =
+    wards
+      .reduce(
+        (
+          acc,
+          val,
+        ) =>
+          acc
+            .set(
+              val.wd.code,
+              val
+            ),
+        new Map<string,Ward>(),
+      )
+  const laMap = localAuthorities
+    .reduce(
+      (
+        acc,
+        val,
+      ) =>
+        acc
+          .set(
+            val.localAuthority.code,
+            val
+          ),
+      new Map<string,LocalAuthority>(),
+    )
+  const parliamentaryConstituencyMap =
+    parliamentaryConstituencies
+      .reduce(
+        (
+          acc,
+          val,
+        ) =>
+          acc
+            .set(
+              val.pc.code,
+              val,
+            ),
+        new Map<string,ParliamentaryConstituency>(),
+      )
+  const regionMap =
+    regions
+      .reduce(
+        (
+          acc,
+          val,
+        ) =>
+          acc
+            .set(
+              val.rg.code,
+              val,
+            ),
+        new Map<string,Region>(),
+      )
+
+  return {
+    Ward: {
+      name: ({ wd }: Ward) =>
+        wd.name, 
+      id:  ({ wd }: Ward) =>
+        wd.code,
+      lsoas: ({ lsoas }: Ward) =>
+        lsoas,
+      stats: ({ lsoas }: LocalAuthority) => stats({
+        districtLsoas: lsoas,
+      }),
+      region: (
+        {
+          region,
+        }: Ward
+      ) =>
+        regionMap
+          .get(
+            region
+              .code
+          ),
+      localAuthority: (
+        {
+          localAuthority,
+        }: Ward
+      ) =>
+        laMap
+          .get(
+            localAuthority
+              .code
+          ),
+      parliamentaryConstituency: (
+        {
+          parliamentaryConstituency,
+        }: Ward
+      ) =>
+        parliamentaryConstituencyMap
+          .get(
+            parliamentaryConstituency
+              .code
+          ),  
+    },
+    ParliamentaryConstituency: {
+      name: ({ pc }: ParliamentaryConstituency) =>
+        pc.name, 
+      id:  ({ pc }: ParliamentaryConstituency) =>
+        pc.code,
+      region: (
+        {
+          region,
+        }: ParliamentaryConstituency
+      ) =>
+        regionMap
+          .get(
+            region
+              .code
+          ),
+      localAuthority: (
+        {
+          localAuthority,
+        }: ParliamentaryConstituency
+      ) =>
+        laMap
+          .get(
+            localAuthority
+              .code
+          ),
+      lsoas: ({ lsoas }: ParliamentaryConstituency) =>
+        lsoas,
       stats: ({ lsoas }: LocalAuthority) => stats({
         districtLsoas: lsoas,
       }),  
-  },
-  ParliamentaryConstituency: {
-    name: ({ pc }: ParliamentaryConstituency) =>
-      pc.name, 
-    id:  ({ pc }: ParliamentaryConstituency) =>
-      pc.code,
-    lsoas: ({ lsoas }: ParliamentaryConstituency) =>
-      lsoas,
+    },
+    Region: {
+      name: ({ rg: { name } }: Region) =>
+        name, 
+      id:  ({ rg: { code } }: Region) =>
+        code,
+      lsoas: ({ lsoas }: Region) =>
+        lsoas,
+      stats: ({ lsoas }: Region) => stats({
+        districtLsoas: lsoas,
+      }),
+    },
+    LocalAuthority: {
+      name: ({ localAuthority: { name } }: LocalAuthority) =>
+        name, 
+      id:  ({ localAuthority: { code } }: LocalAuthority) =>
+        code,
+      region: (
+        {
+          region,
+        }: LocalAuthority
+      ) =>
+        regionMap
+          .get(
+            region
+              .code
+          ),
+      lsoas: ({ lsoas }: LocalAuthority) =>
+        lsoas,
       stats: ({ lsoas }: LocalAuthority) => stats({
         districtLsoas: lsoas,
-      }),  
-  },
-  LocalAuthority: {
-    name: ({ la }: LocalAuthority) =>
-      la.name, 
-    id:  ({ la }: LocalAuthority) =>
-      la.code,
-    lsoas: ({ lsoas }: LocalAuthority) =>
-      lsoas,
-    stats: ({ lsoas }: LocalAuthority) => stats({
-      districtLsoas: lsoas,
-    }),
-  },
-  LSOA: {
-    name: ({ lsoa }: LSOA) =>
-      lsoa.name, 
-    id:  ({ lsoa }: LSOA) =>
-      lsoa.code,
-    localAuthority: ({ laDistrict }: LSOA) => {
-      console.log('for', laDistrict)
-      const la = localAuthorities
-        .find(
-          ({
-            la
-          }) => la.code === laDistrict.code,
-        )
-      if(!la) {
-        console.log('cannot find', laDistrict)
-      }
-      return la
-    }
-  },
-  Query: {
-    wards: () =>
-      wards,
-    parliamentaryConstituencies: () =>
-      parliamentaryConstituencies,
-    lsoas: () =>
-      lsoas,
-    localAuthorities: () =>
-      localAuthorities
-  },
-})
+      }),
+    },
+    LSOA: {
+      name: ({ lsoa }: LSOA) =>
+        lsoa.name, 
+      id:  ({ lsoa }: LSOA) =>
+        lsoa.code,
+      region: (
+        {
+          region,
+        }: LSOA
+      ) =>
+        laMap
+          .get(
+            region
+              .code
+          ),
+      localAuthority: (
+        {
+          localAuthority: laDistrict,
+        }: LSOA
+      ) =>
+        laMap
+          .get(
+            laDistrict
+              .code
+          ),
+      parliamentaryConstituency: (
+        {
+          parliamentaryConstituency,
+        }: LSOA
+      ) =>
+        parliamentaryConstituencyMap
+          .get(
+            parliamentaryConstituency
+              .code
+          ),
+      ward: (
+        {
+          ward,
+        }: LSOA
+      ) =>
+        wardMap
+          .get(
+            ward
+              .code
+          )
+    },
+    Query: {
+      wards: () =>
+        wards,
+      parliamentaryConstituencies: () =>
+        parliamentaryConstituencies,
+      lsoas: () =>
+        lsoas,
+      localAuthorities: () =>
+        localAuthorities,
+      regions: () =>
+        regions
+    },
+  }
+}

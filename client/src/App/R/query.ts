@@ -1,15 +1,10 @@
 import { gql } from 'apollo-boost'
 
 export default gql`
-  query WW {
-    wards {
+  query RR {
+    regions {
       name 
       id
-      localAuthority {
-        id
-        percentRemain
-        percentLeave
-      }
       stats {
         totalCount
         individualPayBands {

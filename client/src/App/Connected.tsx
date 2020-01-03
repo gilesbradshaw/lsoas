@@ -6,8 +6,6 @@ import { onError } from 'apollo-link-error'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 import { createHttpLink } from 'apollo-link-http'
-import { WebSocketLink } from 'apollo-link-ws'
-import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { ThemeProvider } from 'styled-components'
 import { ModalProvider } from 'styled-react-modal'
 import {
@@ -20,7 +18,11 @@ import { lifecycle, withState, compose } from 'recompose'
 
 
 // import Lib from 'lib'
-import T from './G'
+import G from './G'
+import R from './R'
+import P from './P'
+import T from './T'
+import W from './W'
 
 // import './App.css';
 //import Zone from '../../../oldts/Zone'
@@ -53,9 +55,29 @@ const Connected: React.FC<{ client: any } & RouteComponentProps> =
               <ApolloHooksProvider client={client}>
                 <>
                   <Switch>
+                  <Route
+                      component={G}
+                      path={`${path}G`}
+                      exact
+                    />
+                    <Route
+                      component={R}
+                      path={`${path}R`}
+                      exact
+                    />
                     <Route
                       component={T}
-                      path={`${path}`}
+                      path={`${path}T`}
+                      exact
+                    />
+                    <Route
+                      component={P}
+                      path={`${path}P`}
+                      exact
+                    />
+                    <Route
+                      component={W}
+                      path={`${path}W`}
                       exact
                     />
                     <Route

@@ -5,6 +5,11 @@ export default gql`
     parliamentaryConstituencies {
       name 
       id
+      localAuthority {
+        id
+        percentRemain
+        percentLeave
+      }
       stats {
         totalCount
         individualPayBands {
