@@ -114,6 +114,9 @@ export default gql`
   type Region {
     id: String!
     name: String!
+    localAuthorities: [LocalAuthority]!
+    parliamentaryConstituencies: [ParliamentaryConstituency]!
+    wards: [Ward]!
     lsoas: [LSOA]!
     stats: Stats
   }
@@ -121,29 +124,33 @@ export default gql`
     id: String!
     name: String!
     region: Region!
+    parliamentaryConstituencies: [ParliamentaryConstituency]!
+    wards: [Ward]!
     lsoas: [LSOA]!
     stats: Stats
     percentLeave: Float!
     percentRemain: Float!
+    leave: Int!
+    remain: Int!
   }
   type ParliamentaryConstituency {
     id: String!
     name: String!
-    lsoas: [LSOA]!
-    stats: Stats
     region: Region!
     localAuthority: LocalAuthority!
+    wards: [Ward]!
+    lsoas: [LSOA]!
+    stats: Stats
   }
   type Ward {
     id: String!
     name: String!
-    lsoas: [LSOA]!
-    stats: Stats
     region: Region!
     localAuthority: LocalAuthority!
     parliamentaryConstituency: ParliamentaryConstituency!
-  }
-  
+    lsoas: [LSOA]!
+    stats: Stats
+  }  
   type Query {
     """
     Test Message. 

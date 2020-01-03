@@ -19,9 +19,7 @@ const options = {
       },
       ...aee
     }) => {
-      console.log(series[seriesIndex].data)
       if(!series[seriesIndex].data[0][3][0]) {
-        console.log('noooo')
         return '#FFFF00'
       }
       if (series[seriesIndex].data[0][3][0] < series[seriesIndex].data[0][3][1]) {

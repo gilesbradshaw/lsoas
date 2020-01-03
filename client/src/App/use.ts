@@ -63,7 +63,7 @@ export default ({
                   ({
                     totalCount,
                   }, i) =>
-                      3 * totalCount/meanCount,
+                      30 * totalCount/meanCount,
                 )
           },
           tooltip: {

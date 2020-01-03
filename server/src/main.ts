@@ -7,7 +7,7 @@ import lsoaToWard from './data/lsoa-to-ward'
 import region from './data/region'
 import localAuthorityToRegion from './data/local-authority-to-region'
 import ward from './data/ward'
-import wardToParliamentaryConsituency from './data/ward-to-parliamentary-constituency'
+import wardToParliamentaryConstituency from './data/ward-to-parliamentary-constituency'
 import individualPayAndBenefit from './data/pay-and-benefits/individual'
 import householdPayAndBenefit from './data/pay-and-benefits/household'
 import ruralUrbanClassification from './data/rural-urban-classification'
@@ -29,7 +29,7 @@ localAuthorityToRegion()
           householdPayAndBenefit(),
           region(),
           lsoaToWard(),
-          wardToParliamentaryConsituency(),
+          wardToParliamentaryConstituency(),
           localAuthority(),
           parliamentaryConstituency(),
           ward(),
@@ -101,6 +101,20 @@ localAuthorityToRegion()
                                       ({ area: { code } }) =>
                                         localAuthority.code === code,
                                     ) || { percentLeave: '0' } as { percentLeave: string }).percentLeave
+                                ),
+                                remain: parseInt(
+                                  (euReferendums
+                                    .find(
+                                      ({ area: { code } }) =>
+                                        localAuthority.code === code,
+                                    ) || { remain: '0' } as { remain: string }).remain
+                                ),
+                                leave: parseInt(
+                                  (euReferendums
+                                    .find(
+                                      ({ area: { code } }) =>
+                                        localAuthority.code === code,
+                                    ) || { leave: '0' } as { leave: string }).leave
                                 ),
                                 lsoas: lsoas
                                   .filter(

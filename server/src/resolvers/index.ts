@@ -141,6 +141,14 @@ export default ({
             localAuthority
               .code
           ),
+      wards: ({ pc: { code } }: ParliamentaryConstituency) =>
+        wards
+          .filter(
+            ({
+              parliamentaryConstituency,
+            }) =>
+              parliamentaryConstituency.code === code
+          ),
       lsoas: ({ lsoas }: ParliamentaryConstituency) =>
         lsoas,
       stats: ({ lsoas }: LocalAuthority) => stats({
@@ -157,6 +165,30 @@ export default ({
       stats: ({ lsoas }: Region) => stats({
         districtLsoas: lsoas,
       }),
+      localAuthorities: ({ rg: { code } }: Region) =>
+        localAuthorities
+          .filter(
+            ({
+              region,
+            }) =>
+              region && region.code === code
+          ),
+      parliamentaryConstituencies: ({ rg: { code } }: Region) =>
+        parliamentaryConstituencies
+          .filter(
+            ({
+              region,
+            }) =>
+              region.code === region.code
+          ),
+      wards: ({ rg: { code } }: Region) =>
+        wards
+          .filter(
+            ({
+              region,
+            }) =>
+              region.code === region.code
+          )
     },
     LocalAuthority: {
       name: ({ localAuthority: { name } }: LocalAuthority) =>
@@ -173,7 +205,23 @@ export default ({
             region
               .code
           ),
-      lsoas: ({ lsoas }: LocalAuthority) =>
+        parliamentaryConstituencies: ({ localAuthority: { code } }: LocalAuthority) =>
+          parliamentaryConstituencies
+            .filter(
+              ({
+                localAuthority,
+              }) =>
+                localAuthority.code === localAuthority.code
+            ),
+        wards: ({ localAuthority: { code } }: LocalAuthority) =>
+          wards
+            .filter(
+              ({
+                localAuthority,
+              }) =>
+                localAuthority.code === localAuthority.code
+            ),
+        lsoas: ({ lsoas }: LocalAuthority) =>
         lsoas,
       stats: ({ lsoas }: LocalAuthority) => stats({
         districtLsoas: lsoas,

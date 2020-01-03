@@ -5,6 +5,10 @@ export default gql`
     regions {
       name 
       id
+      localAuthorities {
+        leave
+        remain
+      }
       stats {
         totalCount
         individualPayBands {

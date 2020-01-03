@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts'
 import Pre from '../Pre'
 import Scroll from '../Scroll'
 
-import use from '../use'
+import use from '../multi-use'
 import query from './query'
 
 export default () => {
@@ -27,7 +27,7 @@ export default () => {
       <Chart
         {...{
           ...config,
-          type: 'scatter',
+          type: 'bubble',
           width: 1600,
           height: 800,
         }}
