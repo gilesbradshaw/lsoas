@@ -1,8 +1,10 @@
 # lsoas
 
+Api and client for data on Local Authorities, Parliamentary Constituencies, Wards and Lower Layer Super Output Areas
+
 ## how local authorities voted in eu referendum
 
-green is leave red is remain - income inequality increased from left to right - number of deprived areas increases as you go up, size is size of local authority.  The darker the more marginal
+Green is leave red is remain - income inequality increased from left to right - number of deprived areas increases as you go up, size is size of local authority.  The darker the more marginal.  Deprivation is measure by proportion of LSOAs in bottom quintile for IMD.  Generally LAs with higher inequality - eg Cambridge have more dynamic economies than thoise with lower inequality eg Burnley.
 ![euref](euref.png)
 
 
